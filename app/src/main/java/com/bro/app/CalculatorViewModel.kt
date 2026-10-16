@@ -1,6 +1,9 @@
 package com.bro.app
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-class CalculatorViewModel : ViewModel() {
+class CalculatorViewModel(application: Application) : AndroidViewModel(application) {
     private val _expression = mutableStateOf("")
     val expression: State<String> get() = _expression
 
@@ -20,7 +23,7 @@ class CalculatorViewModel : ViewModel() {
     // Database initialization (singleton per process)
     private val db by lazy {
         Room.databaseBuilder(
-            getApplicationContext(),
+            getApplication(),
             AppDatabase::class.java,
             "calc_history.db"
         ).build()
