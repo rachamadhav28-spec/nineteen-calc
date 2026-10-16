@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,10 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 var currentScreen by remember { mutableStateOf<Screen>(Screen.Calculator) }
-                AnimatedContent(
-                    targetState = currentScreen,
-                    transitionSpec = { tween(durationMillis = 300) }
-                ) { target ->
+                AnimatedContent(targetState = currentScreen) { target ->
                     when (target) {
                         is Screen.Calculator -> CalculatorScreen(
                             viewModel = viewModel,
